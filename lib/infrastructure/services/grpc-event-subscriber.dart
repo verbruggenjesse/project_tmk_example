@@ -79,8 +79,10 @@ class GrpcEventSubscriber implements IEventSubscriber {
         });
       },
       onError: (_) {
-        _instance = GrpcEventSubscriber._recreateFromCrash(_handlers);
-        _instance.listenForEvents();
+        Future.delayed(const Duration(seconds: 1), () {
+          _instance = GrpcEventSubscriber._recreateFromCrash(_handlers);
+          _instance.listenForEvents();
+        });
       },
       cancelOnError: true,
     );
